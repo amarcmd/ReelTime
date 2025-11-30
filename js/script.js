@@ -104,9 +104,9 @@ if (modal) {
 //for the welcome box to active the btns set indicator and trnsform to the next img every 3 sec
 let heroBox = document.getElementById("heroBox");
 let heroImages = [
-  "../imgs/welcome page.png",
-  "../imgs/Premiere.png",
-  "../imgs/theatre.png"
+  "imgs/welcome page.png",
+  "imgs/Premiere.png",
+  "imgs/theatre.png"
 ];
 let heroIndex = 0;
 let autoAdvanceInterval;
