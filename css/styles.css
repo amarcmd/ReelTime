@@ -1016,7 +1016,7 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 } 
 
 .brand .logo img{
@@ -1616,11 +1616,18 @@ header {
 
 /* for comments */
 .comments-section {
-  margin-top: 1.5rem;
+  margin-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 1rem;
+  text-align: left;
+  max-height: 400px;
+  overflow-y: auto;
 }
-
+#comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .comments-section h4 {
   margin-bottom: 0.75rem;
 }
@@ -1650,6 +1657,16 @@ header {
 .comment-text {
   font-size: 0.9rem;
   line-height: 1.4;
+}
+#comments-list .comment-text,
+#comments-list p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #ddd;
+
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .no-comments {

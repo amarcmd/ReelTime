@@ -323,6 +323,8 @@
     border: 2px solid var(--accent-purple);
     box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
     text-align: center;
+
+    overflow-y: auto;
 }
 
 .rating-modal-header {
@@ -535,7 +537,11 @@
 #largeRatingComment {
   width: 100%;
   min-height: 80px;
+  max-height:120px;
   resize: vertical;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -557,6 +563,7 @@
   box-shadow: 0 0 0 1px rgba(138, 43, 226, 0.6);
   background: rgba(15, 15, 30, 0.95);
 }
+
 /* Booking Section */
 
 .booked-section {

@@ -487,3 +487,49 @@ function showToast(message, type) {
         }, 300);
     }, 3000);
 }
+// --- Games search on trivia page ---
+$(function () {
+  const $searchInput = $("#SearchInput");
+  const $cards = $(".game-card");
+  const $grid = $(".games-grid");
+
+  if (!$searchInput.length || !$cards.length) return;
+
+  let $emptyMsg = null;
+
+  $searchInput.on("input", function () {
+    const q = $(this).val().toLowerCase().trim();
+    let visibleCount = 0;
+
+    $cards.each(function () {
+      const $card = $(this);
+      const title = $card.find("h3").text().toLowerCase();
+      const desc = $card.find("p").text().toLowerCase();
+      const tag  = ($card.data("game") || "").toString().toLowerCase();
+
+      const matches =
+        !q || title.includes(q) || desc.includes(q) || tag.includes(q);
+
+      $card.toggle(matches);
+      if (matches) visibleCount++;
+    });
+
+    // show / hide "no results" message
+    if (!$emptyMsg) {
+      $emptyMsg = $("<div>")
+        .attr("id", "gamesSearchEmpty")
+        .addClass("search-empty-msg")
+        .appendTo($grid);
+    }
+
+    if (q && visibleCount === 0) {
+    $emptyMsg
+        .html(`<div class="search-empty-msg-inner">
+                No games found for "<strong>${q}</strong>".
+            </div>`)
+        .show();
+    } else {
+    $emptyMsg.hide();
+    }
+  });
+});

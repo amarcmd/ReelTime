@@ -1,4 +1,4 @@
-
+const MAX_COMMENT_CHARS = 100;
 $(document).ready(function() {
     initializeProfile();
     initializeToastStyles();
@@ -123,7 +123,7 @@ function loadWatchlist(user) {
                     <div class="empty-icon">📽️</div>
                     <h3>Your Watchlist is Empty</h3>
                     <p>Start adding movies to build your personalized collection!</p>
-                    <a href="index.html" style="color: #8a2be2; text-decoration: none; font-weight: bold;">Browse Movies →</a>
+                    <a href="../index.html" style="color: #8a2be2; text-decoration: none; font-weight: bold;">Browse Movies →</a>
                 </div>
             `);
             return;
@@ -238,6 +238,7 @@ function loadBookedMovies(user) {
                     <div class="empty-rated-icon">🎟️</div>
                     <h3>No Bookings Yet</h3>
                     <p>Book a movie from the bookings page and it will appear here.</p>
+                    <a href="../pages/bookings.html" style="color: #8a2be2; text-decoration: none; font-weight: bold;">Book a Movie →</a>
                 </div>
             `);
             return;
@@ -352,8 +353,10 @@ function openLargeRatingModal(movieTitle, currentRating = 0) {
                     </div>
                     
                     <div class="rating-comment-wrapper">
-                        <label for="largeRatingComment">Your comment (optional)</label>
-                        <textarea id="largeRatingComment" rows="3" placeholder="What did you think of this movie?">${existingComment}</textarea>
+                        <label for="largeRatingComment">Your comment (optional)
+                        <span id="commentCounter" style="font-size: 0.8rem; opacity: 0.8;"> 0/${MAX_COMMENT_CHARS}</span>
+                        </label>
+                        <textarea id="largeRatingComment" rows="3" maxlength="${MAX_COMMENT_CHARS}" placeholder="What did you think of this movie?">${existingComment}</textarea>
                     </div>
 
                     <div class="rating-actions-large">
@@ -371,7 +374,18 @@ function openLargeRatingModal(movieTitle, currentRating = 0) {
         
         let selectedRating = currentRating;
         const $confirmBtn = $('#confirmLargeRating');
-        
+        const $comment = $('#largeRatingComment');
+        const $counter = $('#commentCounter');
+
+        if ($comment.length && $counter.length) {
+            const max = MAX_COMMENT_CHARS;
+            const updateCounter = () => {
+            const len = $comment.val().length;
+            $counter.text(`${len}/${max}`);
+            };
+            updateCounter();
+            $comment.on('input', updateCounter);
+        }
         // Initialize stars
         if (currentRating > 0) {
             highlightLargeStars(currentRating);
@@ -503,12 +517,25 @@ function removeMovieRating(movieTitle) {
             delete savedRatings[userData.username][movieTitle];
             localStorage.setItem('movieRatings', JSON.stringify(savedRatings));
             
-            loadWatchlist(userData);
-            loadRatedMovies(userData);
-            
-            showToast(`Rating for "${movieTitle}" removed`, 'removed');
         }
-    
+        
+        let extraComments = JSON.parse(localStorage.getItem('movieCommentsExtra')) || {};
+        if (extraComments[movieTitle]) {
+        extraComments[movieTitle] = extraComments[movieTitle].filter(
+            c => c.user !== userData.username
+        );
+
+        if (extraComments[movieTitle].length === 0) {
+            delete extraComments[movieTitle];
+        }
+
+        localStorage.setItem('movieCommentsExtra', JSON.stringify(extraComments));
+        }
+
+        loadWatchlist(userData);
+        loadRatedMovies(userData);
+
+        showToast(`Rating for "${movieTitle}" removed`, 'removed');
 }
 
 
