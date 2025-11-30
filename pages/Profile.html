@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Permissions-Policy" content="autoplay=(self),encrypted-media=(self)">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Watchlist</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="shortcut icon" href="../imgs/movie.png" type="image/x-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="../js/profile.js" defer></script>
+  <script src="../js/watchlist.js" defer></script>
+  <script src="../js/script.js" defer></script>
+  <script src="../js/scriptJQ.js" defer></script>
+
+</head>
+<body>
+ <header>
+    
+     <div class="brand">
+        <div class="logo"><img src="../imgs/movie.png" alt=""></div>
+        <span class="brand-name">ReelTime</span>
+      </div>
+
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../pages/bookings.html">Bookings</a></li> 
+         <li><a href="../pages/trivia.html">Games</a></li>  
+        <li><a href="../pages/about.html">About</a></li>
+      </ul>
+    </nav>
+
+
+    <div class="hamburger" id="hamburger">
+      <span></span> <!-- Line 1 of the hamburger menu -->
+      <span></span> <!-- Line 2 of the hamburger menu -->
+      <span></span> <!-- Line 3 of the hamburger menu -->
+    </div>
+
+
+    <div class="search">
+      <input id="SearchInput" placeholder="Search movies, actors, genres..." />
+      <button class="search-icon" id="searchToggle">
+        <i class="fa fa-search" aria-hidden="true"></i>
+
+      </button>
+    </div>
+    <div class="profile-icon">
+      <a style="color: #895bf5; " href="../pages/Profile.html"><i class="fa-solid fa-circle-user"></i></a>
+    </div>
+
+  </header>
+
+
+  <div class="Profile-container">
+    
+  </div>
+
+<main>
+    <div id="watchlist-container" class="gallery"></div>
+    
+    <!-- Add this Rated Movies Section -->
+    <div class="rated-section">
+        <div class="section-header">
+            <div class="section-title">My Rated Movies</div>
+            <div class="watchlist-count" id="rated-counter">0 movies rated</div>
+        </div>
+        <div class="rated" id="rated"></div>
+    </div>
+    <!-- Booked Section -->
+    <div class="booked-section">
+      <div class="section-header">
+        <div class="section-title">My Booked Movies</div>
+        <div class="watchlist-count" id="booked-counter">0 bookings</div>
+      </div>
+      <div class="booked-grid-modern" id="booked-grid"></div>
+    </div>
+
+</main>
+  
+
+<footer class="cinema-footer">
+  <div class="film-strip">
+    <div class="film-perfs">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  
+  <div class="footer-main">
+    <div class="footer-section">
+       <div class="brand">
+        <div class="logo"><img src="../imgs/movie.png" alt=""></div>
+        <span class="brand-name">ReelTime</span>
+      </div>
+      <p class="tagline">Where stories come to life</p>
+    </div>
+    
+    <div class="footer-nav">
+      <div class="nav-column">
+        <strong>Movies</strong>
+        <a href="../index.html">Home</a>
+        <a href="../pages/bookings.html">booking</a>
+        <a href="../pages/Profile.html">My profile</a>
+        <a href="../pages/about.html">About US</a>
+      </div>
+      <!-- <div class="nav-column">
+        <strong>Experience</strong>
+        <a href="#">Theaters</a>
+        <a href="#">Premium</a>
+        <a href="#">3D</a>
+      </div> -->
+      <div class="nav-column">
+        <strong>Social media </strong>
+        <a href="#">instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">tiktok</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-credits">
+    <p>Made with ❤️ for movie lovers</p>
+    <p>&copy; 2024 ReelTime Cinemas</p>
+  </div>
+</footer>
+  
+     <!-- <script src="script.js" ></script> -->
+  <!-- <script src="scriptJQ.js" defer></script> -->
+</body>
+</html>
