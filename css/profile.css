@@ -114,13 +114,6 @@
     margin: 50px;
 }
 
-/* Modern Watchlist Grid */
-/* .watchlist-grid-modern {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}  */
-/* ONE ROW + HORIZONTAL SCROLL LIKE HOME PAGE */
 .watchlist-grid-modern,
 .rated-grid-modern,
 .booked-grid-modern {
@@ -307,7 +300,7 @@
     border-color: var(--accent-purple);
 }
 
-/* Empty State */
+
 .empty-watchlist {
     text-align: center;
     padding: 60px 20px;
@@ -357,6 +350,8 @@
         padding: 10px;
     }
 }
+
+
 
 .rating-modal-overlay {
     position: fixed;
