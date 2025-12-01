@@ -25,6 +25,7 @@ function setupWatchlistEventHandlers() {
         event.preventDefault();
         event.stopPropagation();
         handleWatchlistAdd($(this));
+        window.dispatchEvent(new CustomEvent('watchlist-updated'));
     });
 }
 

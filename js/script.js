@@ -182,96 +182,89 @@ function handleResize() {
 window.addEventListener('resize', handleResize);
 
 
-//Search functionality 
-document.addEventListener("DOMContentLoaded", () => {
-  let searchInput = document.getElementById("SearchInput");
-  let searchContainer = document.querySelector(".search");
-  let searchToggle = document.getElementById("searchToggle");
-  let movieCards = document.querySelectorAll(".movie-card");
-  let overlay = document.getElementById("searchOverlay");
-  let resultsContainer = document.querySelector(".search-results");
+// //Search functionality 
+// document.addEventListener("DOMContentLoaded", () => {
+//   let searchInput = document.getElementById("SearchInput");
+//   let searchContainer = document.querySelector(".search");
+//   let searchToggle = document.getElementById("searchToggle");
+//   let movieCards = document.querySelectorAll(".movie-card");
+//   let overlay = document.getElementById("searchOverlay");
+//   let resultsContainer = document.querySelector(".search-results");
 
-  if (searchContainer && searchInput && searchToggle) {
-    searchToggle.addEventListener("click", (e) => {
-      e.preventDefault();
-      searchContainer.classList.toggle("active");
-      if (searchContainer.classList.contains("active")) {
-        searchInput.focus();
-      } else {
-        searchInput.value = "";
-      }
-    });
-  }
+//   if (searchContainer && searchInput && searchToggle) {
+//     searchToggle.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       searchContainer.classList.toggle("active");
+//       if (searchContainer.classList.contains("active")) {
+//         searchInput.focus();
+//       } else {
+//         searchInput.value = "";
+//       }
+//     });
+//   }
 
-  if (!searchInput || !overlay || !resultsContainer) return;
+//   if (!searchInput || !overlay || !resultsContainer) return;
 
-  searchInput.addEventListener("input", () => {
-  let allCards = document.querySelectorAll(".movie-card");
-  let query = searchInput.value.toLowerCase().trim();
-  resultsContainer.innerHTML = "";
+//   searchInput.addEventListener("input", () => {
+//   let allCards = document.querySelectorAll(".movie-card");
+//   let query = searchInput.value.toLowerCase().trim();
+//   resultsContainer.innerHTML = "";
 
-    if (query === "") {
-      overlay.style.display = "none";
-      return;
-    }
-    let seenTitles = new Set();
-    let matches=[];
+//     if (query === "") {
+//       overlay.style.display = "none";
+//       return;
+//     }
+//     let seenTitles = new Set();
+//     let matches=[];
 
-  Array.from(allCards).forEach(card => {
-    let titleText =(card.dataset.title ||card.querySelector("figcaption")?.textContent ||"").toLowerCase();
-    let descText =(card.dataset.description || "").toLowerCase();
-    let castText   = (card.dataset.cast || "").toLowerCase();
-    let genresText = (card.dataset.genres || "").toLowerCase();
-    if (!titleText && !descText && !castText && !genresText) return;
+//   Array.from(allCards).forEach(card => {
+//     let titleText =(card.dataset.title ||card.querySelector("figcaption")?.textContent ||"").toLowerCase();
+//     let descText =(card.dataset.description || "").toLowerCase();
+//     let castText   = (card.dataset.cast || "").toLowerCase();
+//     let genresText = (card.dataset.genres || "").toLowerCase();
+//     if (!titleText && !descText && !castText && !genresText) return;
 
-    let isMatch = titleText.includes(query) || descText.includes(query) || castText.includes(query) || genresText.includes(query);
+//     let isMatch = titleText.includes(query) || descText.includes(query) || castText.includes(query) || genresText.includes(query);
 
-    if (isMatch && !seenTitles.has(titleText)) {
-      seenTitles.add(titleText);
-      matches.push(card); 
-    }
-  });
+//     if (isMatch && !seenTitles.has(titleText)) {
+//       seenTitles.add(titleText);
+//       matches.push(card); 
+//     }
+//   });
 
-  if (matches.length > 0) {
-    overlay.style.display = "flex";
+//   if (matches.length > 0) {
+//     overlay.style.display = "flex";
 
-    matches.forEach(card => {
-      let clone = card.cloneNode(true);
+//     matches.forEach(card => {
+//       let clone = card.cloneNode(true);
 
-      clone.addEventListener("click", function () {
-        openMovieModal(this);
-      });
+//       clone.addEventListener("click", function () {
+//         openMovieModal(this);
+//       });
 
-      resultsContainer.appendChild(clone);
-    });
-  } else {
-    overlay.style.display = "flex";
-    resultsContainer.innerHTML =
-      `<div class="no-results">No movies found for "${query}"</div>`;
-  }
-  });
+//       resultsContainer.appendChild(clone);
+//     });
+//   } else {
+//     overlay.style.display = "flex";
+//     resultsContainer.innerHTML =
+//       `<div class="no-results">No movies found for "${query}"</div>`;
+//   }
+//   });
 
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      overlay.style.display = "none";
-      searchInput.value = "";
-    }
-  });
+  // overlay.addEventListener("click", (e) => {
+  //   if (e.target === overlay) {
+  //     overlay.style.display = "none";
+  //     searchInput.value = "";
+  //   }
+  // });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.style.display === "flex") {
-      overlay.style.display = "none";
-      searchInput.value = "";
-    }
-  });
-  });
+  // document.addEventListener("keydown", (e) => {
+  //   if (e.key === "Escape" && overlay.style.display === "flex") {
+  //     overlay.style.display = "none";
+  //     searchInput.value = "";
+  //   }
+  // });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.style.display === "flex") {
-      overlay.style.display = "none";
-      searchInput.value = "";
-    }
-  });
 
 //render comments
 function renderCommentsForMovie(title) {
@@ -285,11 +278,11 @@ function renderCommentsForMovie(title) {
     (window.movieComments && window.movieComments[title]) || [];
 
   // Extra comments users added (localStorage)
-let extraStore = JSON.parse(localStorage.getItem("movieCommentsExtra")) || {};
+  let extraStore = JSON.parse(localStorage.getItem("movieCommentsExtra")) || {};
   let extraForMovie = extraStore[title] || [];
 
   // jam3 el comments mn movies.json w el extra
-let allComments = [...baseComments, ...extraForMovie];
+  let allComments = [...baseComments, ...extraForMovie];
 
   if (!allComments.length) {
     commentsContainer.innerHTML =
@@ -319,17 +312,20 @@ let allComments = [...baseComments, ...extraForMovie];
 // MAIN FUNCTION TO OPEN MODAL
 function openMovieModal(cardElement) {
   let card = cardElement.closest('figure');
+  let h3 =cardElement.querySelector('h3')
+  let title =(h3 && h3.textContent.trim()) || card.dataset.title || card.getAttribute('data-title') || '';
+  let text = card.dataset.description || card.getAttribute('data-description') || 'No movie description available yet.';
 
- 
+  let rating = card.dataset.rating || card.getAttribute('data-rating') ||'N/A';
 
-  let titleEl = card.querySelector('figcaption');
-  let title = titleEl ? titleEl.textContent.trim() : card.getAttribute('data-title');
-  let text = card.getAttribute('data-description') || 'No movie description available yet.';
-  let rating = card.getAttribute('data-rating') || 'N/A';
-  let cast = card.getAttribute('data-cast') || 'N/A';
-  let genres = card.getAttribute('data-genres') || 'N/A';
-  let thisMovieIs = card.getAttribute('data-this-movie-is') || 'N/A';
+  let cast = card.dataset.cast || card.getAttribute('data-cast') || 'N/A';
+
+  let genres = card.dataset.genres || card.getAttribute('data-genres') || 'N/A';
+
+  let thisMovieIs = card.dataset.thisMovieIs || card.getAttribute('data-this-movie-is') || 'N/A';
+
   let youtubeEmbedUrl = TRAILER_URLS[title] || '';
+  let titleEl = card.querySelector('figcaption');
 
   if (modalTitle) modalTitle.textContent = title;
   if (modalText) modalText.textContent = text;

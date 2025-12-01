@@ -20,6 +20,7 @@ function initializeProfile() {
         $(document).off('change', '#booked-sort').on('change', '#booked-sort', function () {
           loadBookedMovies(user);
         });
+        setupProfileSearch();
 }
 
 
@@ -70,7 +71,9 @@ function renderProfile(user) {
                     </div>
                 </div>
             </div>
-            
+            <div class="search">
+                <input id="SearchInput" placeholder="Search movies in your watchlist..." />
+            </div>
             <div class="watchlist-section">
                 <div class="section-header">
                     <div class="section-title">My Watchlist</div>
@@ -652,22 +655,27 @@ function initializeToastStyles() {
 
    
 });
-//profile search 
-document.addEventListener("DOMContentLoaded", () => {
+// PROFILE SEARCH – filters watchlist + rated inside the profile page
+function setupProfileSearch() {
   const searchInput = document.getElementById("SearchInput");
   if (!searchInput) return;
+
+  // To avoid adding multiple listeners if initializeProfile() is ever called again
+  searchInput.oninput = null;
 
   searchInput.addEventListener("input", () => {
     const q = searchInput.value.toLowerCase().trim();
 
     const watchContainer = document.getElementById("modern-watchlist");
     const ratedContainer = document.getElementById("modern-rated");
-    if (!watchContainer && !ratedContainer) return; 
+    if (!watchContainer && !ratedContainer) return;
 
     const watchCards = watchContainer
-      ? watchContainer.querySelectorAll(".watchlist-card-modern"): [];
+      ? watchContainer.querySelectorAll(".watchlist-card-modern")
+      : [];
     const ratedCards = ratedContainer
-      ? ratedContainer.querySelectorAll(".rated-card-modern"): [];
+      ? ratedContainer.querySelectorAll(".rated-card-modern")
+      : [];
 
     const filterCards = (cards) => {
       cards.forEach((card) => {
@@ -684,25 +692,22 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-   // to display msg eza ma mawjood l movie
     const updateEmptyMessage = (container, cardsNodeList, sectionLabel) => {
       if (!container) return;
 
       const existingMsg = container.querySelector(".search-empty-msg");
 
-      // eza ma fi search, remove msg
+      // no query => remove message
       if (!q) {
         if (existingMsg) existingMsg.remove();
         return;
       }
 
-      // Count kam card
       const visibleCount = Array.from(cardsNodeList).filter(
         (card) => card.style.display !== "none"
       ).length;
 
       if (visibleCount === 0) {
-        // eza ma fi cards, add msg
         if (!existingMsg) {
           const msg = document.createElement("div");
           msg.className = "search-empty-msg";
@@ -714,17 +719,16 @@ document.addEventListener("DOMContentLoaded", () => {
           container.appendChild(msg);
         }
       } else {
-        // cards mawjoodin remove msg
         if (existingMsg) existingMsg.remove();
       }
     };
 
-    // filter cards
+    // apply filters
     filterCards(watchCards);
     filterCards(ratedCards);
 
-    // update empty msg
+    // empty messages
     updateEmptyMessage(watchContainer, watchCards, "Watchlist");
     updateEmptyMessage(ratedContainer, ratedCards, "Rated Movies");
   });
-});
+}
